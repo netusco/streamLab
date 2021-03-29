@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 
 import { server } from '../utils'
+import { GoogleLoginButton } from '../components/GoogleLoginButton'
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -112,6 +113,10 @@ const LoginForm = () => {
               )}
               {submitting ? 'Signing in...' : 'Sign In'}
             </Button>
+            <Typography variant="overline" display="block" gutterBottom>
+              Social Login Providers
+            </Typography>
+            <GoogleLoginButton />
           </Box>
         </form>
       </Paper>
