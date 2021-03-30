@@ -8,7 +8,8 @@ const UserSchema = new Schema({
   lastName: String,
   displayName: String,
   providerId: String,
-  provider: String
+  provider: String,
+  role: String,
 })
 
 const UserModel = model('User', UserSchema)

@@ -3,6 +3,7 @@ import { to } from 'await-to-js'
 import { verifyPassword, hashPassword } from '../auth/utils'
 import { login } from '../auth/strategies/jwt'
 import { createUser, getUserByEmail } from '../database/user'
+import { getRedirectUrl } from '../auth/utils'
 
 const router = express.Router()
 
@@ -47,7 +48,7 @@ router.post('/login', async (req, res) => {
     })
     .json({
       success: true,
-      data: '/'
+      data: getRedirectUrl(req.user.role)
     })
 })
 
@@ -97,7 +98,7 @@ router.post('/register', async (req, res) => {
     })
     .json({
       success: true,
-      data: '/'
+      data: getRedirectUrl(req.user.role)
     })
 })
 
