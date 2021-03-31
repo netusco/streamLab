@@ -9,6 +9,7 @@ import passport from "passport"
 import router from "./router"
 import { connectToDatabase } from "./database/connection"
 import { initialiseAuthentication, utils } from "./auth"
+import { ROLES } from '../utils'
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev })
@@ -28,11 +29,28 @@ nextApp.prepare().then(async () => {
   router(app);
   initialiseAuthentication(app);
 
+  app.get(
+    '/admin/dashboard',
+    passport.authenticate('jwt', { failureRedirect: '/login' }),
+    utils.checkIsInRole(ROLES.Admin),
+    (req, res) => {
+      return handle(req, res)
+    }
+  )
+
+  app.get(
+    '/home',
+    passport.authenticate('jwt', { failureRedirect: '/login' }),
+    (req, res) => {
+      return handle(req, res)
+    }
+  )
+
   app.get("*", (req, res) => {
     return handle(req, res)
   })
 
-await connectToDatabase()
+  await connectToDatabase()
 
   app.listen(port, err => {
     if (err) throw err

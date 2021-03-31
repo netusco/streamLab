@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write ./**/*.{t,j}s*"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -19,7 +20,9 @@
     "mongoose": "^5.12.2",
     "next": "10.0.9",
     "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
     "passport-jwt": "^4.0.0",
+    "prettier": "^2.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
