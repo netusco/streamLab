@@ -3,15 +3,19 @@ import { model, Schema } from 'mongoose'
 const UserSchema = new Schema({
   email: String,
   password: String,
-  businessName: String,
   firstName: String,
   lastName: String,
   displayName: String,
-  providerId: String,
-  provider: String,
   role: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
+  profilePhote: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
 })
 
 const UserModel = model('User', UserSchema)
 
-export { UserModel }
+export default UserModel
