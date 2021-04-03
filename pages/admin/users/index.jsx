@@ -7,7 +7,7 @@ import authReqHeader from '../../../utils/authReqHeader'
 const fetcher = url => axios.get(url, authReqHeader)
     .then(res => res.data)
 
-const UsersList = () => {
+const UsersList = (props) => {
   const { data, error } = useSWR('http://localhost:3000/api/users', fetcher)
 
   
