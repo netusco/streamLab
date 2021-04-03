@@ -1,5 +1,7 @@
 {
-    "watch": ["server"],
-    "exec": "NODE_ENV=development babel-node server/index.js",
-    "ext": "js"
+    "verbose": true,
+    "ignore": ["node_modules", ".next"],
+    "watch": ["server/**/*"],
+    "ext": "js json",
+    "exec": "NODE_ENV=development babel-node server/index.js"
   }

@@ -1,7 +1,11 @@
 import { UserModel } from '../schema'
 
+async function getAllUsers() {
+  return await UserModel.find({}).exec()
+}
 async function getUserById(id) {
-  return await UserModel.findById(id).exec()
+  const user = await UserModel.findById(id).exec()
+  return user
 }
 
 async function getUserByEmail(email) {
@@ -12,4 +16,9 @@ async function getUserByProviderId(providerId) {
   return await UserModel.findOne({ providerId }).exec()
 }
 
-export { getUserById, getUserByEmail, getUserByProviderId }
+export {
+  getUserById, 
+  getUserByEmail, 
+  getUserByProviderId,
+  getAllUsers,
+}

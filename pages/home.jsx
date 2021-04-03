@@ -23,6 +23,7 @@ const Home = () => {
   const classes = useStyles({})
   return (
     <main className={classes.layout}>
+    <Link href={`${process.env.BASE_API_URL}/auth/logout`}>Logout</Link>
       <Paper className={classes.paper} elevation={2}>
         <Box
           display="flex"

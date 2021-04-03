@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -23,6 +24,7 @@ const AdminDashboard = () => {
   const classes = useStyles({})
   return (
     <main className={classes.layout}>
+    <Link href={`${process.env.BASE_API_URL}/auth/logout`}>Logout</Link>
       <Paper className={classes.paper} elevation={2}>
         <Box
           display="flex"
@@ -36,6 +38,7 @@ const AdminDashboard = () => {
           <Typography component="p" gutterBottom>
             Welcome, you are logged in as an administrator!
           </Typography>
+          <Link href='/admin/users'>Users</Link>
         </Box>
       </Paper>
     </main>

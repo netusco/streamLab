@@ -19,7 +19,7 @@ const setup = () => {
 
 const signToken = (user) => {
     return jwt.sign({ data: user }, process.env.JWT_SECRET, {
-        expiresIn: 604800
+        expiresIn: 3600 // in seconds
     })
 }
 
@@ -52,7 +52,7 @@ const checkIsInRole = (...roles) => (req, res, next) => {
 const getRedirectUrl = role => {
   switch (role) {
     case ROLES.Admin:
-      return '/admin/dashboard'
+      return '/admin'
     case ROLES.User:
       return '/home'
     default:
