@@ -4,6 +4,7 @@ import { to } from 'await-to-js'
 import { checkIsInRole } from '../auth/utils'
 import { ROLES } from '../../utils'
 import { getAllUsers, getUserById } from '../database/user/get'
+import { getAllEvents, getEventById } from '../database/event/get'
 
 
 
@@ -42,6 +43,36 @@ function Router(app, handle) {
             return res
                 .status(200)
                 .json(user)
+        }
+    );
+
+    app.get('/api/events', ...adminAuth,
+        async (req, res) => {
+            const [err, events] = await to(getAllEvents())
+
+            if (err) {
+                console.error(err)
+                return res.status(500).json({ success: false, data: 'Error retrieving data from the db' })
+            }
+
+            return res
+                .status(200)
+                .json(events)
+        }
+    );
+
+    app.get('/api/events/:id', ...adminAuth,
+        async (req, res) => {
+            const [err, event] = await to(getEventById(req.params.id))
+
+            if (err) {
+                console.error(err)
+                return res.status(500).json({ success: false, data: 'Error retrieving data from the db' })
+            }
+
+            return res
+                .status(200)
+                .json(event)
         }
     );
 }

@@ -7,6 +7,7 @@ function Router(app, handle) {
 
 
     app.get('/home', authenticate, loadPage)
+    app.get('/profile', authenticate, loadPage)
 }
 
 export default Router

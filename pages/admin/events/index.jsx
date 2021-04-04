@@ -8,18 +8,18 @@ import RequireAuthentication from '../../../utils/RequireAuthentication'
 const fetcher = url => axios.get(url, authReqHeader)
     .then(res => res.data)
 
-const UsersList = (props) => {
-  const { data, error } = useSWR('http://localhost:3000/api/users', fetcher)
+const EventsList = (props) => {
+  const { data, error } = useSWR('http://localhost:3000/api/events', fetcher)
 
   
-  if (error) return <div>Failed to load users</div>
+  if (error) return <div>Failed to load events</div>
   if (!data) return <div>Loading...</div>
 
   return (
     <ul>
       {data && data.map(({ email, _id: id }) => (
         <li key={id}>
-          <Link href={`/admin/users/${id}`}>
+          <Link href={`/admin/events/${id}`}>
             <a>{`User ${email}`}</a>
           </Link>
         </li>
@@ -27,4 +27,4 @@ const UsersList = (props) => {
     </ul>
   )
 }
-export default RequireAuthentication(UsersList);
+export default RequireAuthentication(EventsList);
