@@ -1,7 +1,7 @@
-import useUser from '../hooks/useUser'
+import useAuth from '../hooks/useAuth'
 
 const Profile = () => {
-    const { user } = useUser()
+    const { user } = useAuth()
 
     return (<div>name: {user?.firstName}</div>)
 }

@@ -1,12 +1,14 @@
 import useSWR from 'swr'
 import axios from 'axios'
 import Link from 'next/link'
+import useAuth from '../../../hooks/useAuth'
 import authReqHeader from '../../../utils/authReqHeader'
 
 const fetcher = url => axios.get(url, authReqHeader)
     .then(res => res.data)
 
 const EventsList = (props) => {
+  const { user } = useAuth()
   const { data, error } = useSWR('http://localhost:3000/api/events', fetcher)
 
   

@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge'
 import { withStyles } from '@material-ui/core/styles';
 
-import useUser from '../../hooks/useUser'
+import useAuth from '../../hooks/useAuth'
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -46,7 +46,7 @@ const styles = (theme) => ({
 
 function Header({ classes, onDrawerToggle }) {
   const router = useRouter()
-  const { user } = useUser()
+  const { user } = useAuth()
   const [selected, setSelected] = useState(0);
 
   return (
