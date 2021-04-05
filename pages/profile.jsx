@@ -1,4 +1,3 @@
-import RequireAuthentication from '../utils/RequireAuthentication'
 import useUser from '../hooks/useUser'
 
 const Profile = () => {
@@ -7,4 +6,4 @@ const Profile = () => {
     return (<div>name: {user?.firstName}</div>)
 }
 
-export default RequireAuthentication(Profile);
+export default Profile;

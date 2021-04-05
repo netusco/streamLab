@@ -5,15 +5,34 @@ import { checkIsInRole } from '../auth/utils'
 import { ROLES } from '../../utils'
 import { getAllUsers, getUserById } from '../database/user/get'
 import { getAllEvents, getEventById } from '../database/event/get'
+import { createNotification, getNotificationsByUserId, getNotVisitedNotificationsByUserId } from '../database/notification'
 
 
 
 
 function Router(app, handle) {
+    const auth = passport.authenticate('jwt', { failureRedirect: '/login' })
     const adminAuth = [
-        passport.authenticate('jwt', { failureRedirect: '/login' }),
+        auth,
         checkIsInRole(ROLES.Admin)
     ];
+
+    app.get('/api/users/me', auth,
+        async (req, res) => {
+            const [err, notifications] = await to(getNotVisitedNotificationsByUserId(req.user.id))
+
+            if (err) {
+                console.error(err)
+                return res.status(500).json({ success: false, data: 'Error retrieving data from the db' })
+            }
+
+            const result = { user: req.user, notifications }
+
+            return res
+                .status(200)
+                .json(result)
+        }
+    );
 
     app.get('/api/users', ...adminAuth,
         async (req, res) => {
@@ -75,6 +94,43 @@ function Router(app, handle) {
                 .json(event)
         }
     );
+
+    app.get('/api/notifications/user/:id',
+        async (req, res) => {
+            const [err, notifications] = await to(getNotificationsByUserId(req.params.id))
+
+            if (err) {
+                console.error(err)
+                return res.status(500).json({ success: false, data: 'Error retrieving data from the db' })
+            }
+
+            return res
+                .status(200)
+                .json(notifications)
+        }
+    )
+
+    app.get('/api/notifications/create', auth, 
+        async (req, res) => {
+            const content = 'this is a test notification'
+            const { user } = req
+
+            const [err, notification] = await to(createNotification({
+                content,
+                type: 'info',
+                user: user.id,
+            }))
+
+            if (err) {
+                console.error(err)
+                return res.status(500).json({ success: false, data: 'Error while creating a notification' })
+            }
+
+            return res
+                .status(200)
+                .json(notification)
+        }
+    )
 }
 
 export default Router

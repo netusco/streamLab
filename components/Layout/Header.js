@@ -15,6 +15,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge'
 import { withStyles } from '@material-ui/core/styles';
 
 import useUser from '../../hooks/useUser'
@@ -43,8 +44,7 @@ const styles = (theme) => ({
   },
 });
 
-function Header(props) {
-  const { classes, onDrawerToggle } = props;
+function Header({ classes, onDrawerToggle }) {
   const router = useRouter()
   const { user } = useUser()
   const [selected, setSelected] = useState(0);
@@ -71,9 +71,11 @@ function Header(props) {
                 <Link href={`${process.env.BASE_API_URL}/auth/logout`}>Logout</Link>
             </Grid>
             <Grid item>
-              <Tooltip title="Alerts • No alerts">
+              <Tooltip title={`${user?.notifications?.length ? user?.notifications?.length : 'No'} Alerts`}>
                 <IconButton color="inherit">
-                  <NotificationsIcon />
+                  <Badge badgeContent={user?.notifications?.length} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
                 </IconButton>
               </Tooltip>
             </Grid>

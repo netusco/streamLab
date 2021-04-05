@@ -4,9 +4,10 @@ import EventModel from './event'
 import CourseModel from './course'
 import CommentModel from './comment'
 import GroupModel from './group'
-import ChatMessage from './chatMessage'
-import Chat from './chat'
-import Resource from './resource'
+import ChatMessageModel from './chatMessage'
+import ChatModel from './chat'
+import ResourceModel from './resource'
+import NotificationModel from './notification'
 
 export { 
     UserModel, 
@@ -15,7 +16,8 @@ export {
     CourseModel,
     CommentModel,
     GroupModel,
-    ChatMessage,
-    Chat,
-    Resource,
+    ChatMessageModel,
+    ChatModel,
+    ResourceModel,
+    NotificationModel,
 }

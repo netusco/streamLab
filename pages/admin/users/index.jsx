@@ -2,7 +2,6 @@ import useSWR from 'swr'
 import axios from 'axios'
 import Link from 'next/link'
 import authReqHeader from '../../../utils/authReqHeader'
-import RequireAuthentication from '../../../utils/RequireAuthentication'
 
 
 const fetcher = url => axios.get(url, authReqHeader)
@@ -27,4 +26,4 @@ const UsersList = (props) => {
     </ul>
   )
 }
-export default RequireAuthentication(UsersList);
+export default UsersList;
