@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import AppBar from '@material-ui/core/AppBar';
@@ -19,6 +19,17 @@ import Badge from '@material-ui/core/Badge'
 import { withStyles } from '@material-ui/core/styles';
 
 import useAuth from '../../hooks/useAuth'
+
+const HEADER_TABS = {
+  events: {
+    url: '/events',
+    key: 0
+  },
+  users: {
+    url: '/users',
+    key: 1
+  }
+}
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -47,7 +58,17 @@ const styles = (theme) => ({
 function Header({ classes, onDrawerToggle }) {
   const router = useRouter()
   const { user } = useAuth()
-  const [selected, setSelected] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  useEffect(() => {
+    // select the initial tab based on url path
+    for (let hTab of Object.values(HEADER_TABS)) {
+      if (router.pathname.indexOf(hTab.url) > -1) {
+        setSelectedTab(hTab.key)
+        break
+      }
+    }
+  }, [])
 
   return (
     <React.Fragment>
@@ -123,9 +144,9 @@ function Header({ classes, onDrawerToggle }) {
         position="static"
         elevation={0}
       >
-        <Tabs value={selected} textColor="inherit">
-          <Tab textColor="inherit" label="Events"  onClick={() => { setSelected(0); router.push('/admin/events') }} />
-          <Tab textColor="inherit" label="Users"  onClick={() => { setSelected(1); router.push('/admin/users')} } />
+        <Tabs value={selectedTab} textColor="inherit">
+          <Tab textColor="inherit" label="Events"  onClick={() => { setSelectedTab(HEADER_TABS.events.key); router.push(`/admin${HEADER_TABS.events.url}`) }} />
+          <Tab textColor="inherit" label="Users"  onClick={() => { setSelectedTab(HEADER_TABS.users.key); router.push(`/admin${HEADER_TABS.users.url}`)} } />
         </Tabs>
       </AppBar>
     </React.Fragment>

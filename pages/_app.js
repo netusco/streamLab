@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import '../styles/globals.css'
-import { Layout } from '../components/Layout'
+import { AdminLayout } from '../components/Layout'
 import { AuthProvider } from '../components/AuthContext'
 
 
@@ -14,9 +14,9 @@ function App({ Component, pageProps }) {
     <Component {...pageProps} />
     : (
     <AuthProvider>
-      <Layout {...pageProps}>
+      <AdminLayout {...pageProps}>
         <Component {...pageProps} />
-      </Layout>
+      </AdminLayout>
     </AuthProvider>
   )
 }
